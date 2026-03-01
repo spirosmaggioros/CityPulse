@@ -1,0 +1,98 @@
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      - ./data/uploads:/app/uploads
+    depends_on:
+      - mongo
+      - redis
+
+  chainlit:
+    build: ./agent_api
+    container_name: chainlit
+    restart: always
+    ports:
+      - "8001:8001"
+    env_file: .env
+    volumes:
+      - ./data/uploads:/app/uploads
+    depends_on:
+      - backend
+      - redis
+
+  nginx:
+    build:
+      context: .
+      args:
+        DEV: ${DEV:-true}
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DEV: ${DEV:-true}
+      DOMAIN: ${DOMAIN:-localhost}
+    depends_on:
+      - backend
+      - chainlit
+    volumes:
+      - ./data/uploads:/uploads:ro
+      - ./data/certbot/conf:/etc/nginx/ssl:ro
+      - ./data/certbot/www:/var/www/certbot:ro
+    tmpfs:
+      - /var/run/nginx
+      - /var/cache/nginx
+      - /var/log/nginx
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    # Renew every 12 hours — certbot skips if not due
+    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 43200; done"
+    depends_on:
+      - nginx
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-password}
+    volumes:
+      - ./data/mongo:/data/db
+
+  redis:
+    image: redis:8.0.1
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER:-root}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASSWORD:-password}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER:-root}:${MONGO_PASSWORD:-password}@mongo:27017/
+      ME_CONFIG_BASICAUTH: "${ME_CONFIG_BASICAUTH:-false}"
+    depends_on:
+      - mongo
