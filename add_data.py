@@ -8,7 +8,7 @@ dotenv.load_dotenv()
 
 
 _http_client = httpx.AsyncClient(
-    base_url="http://localhost/api",
+    base_url="https://citypulse.freeddns.us/api",
     timeout=30,
     limits=httpx.Limits(
         max_connections=20,
@@ -1644,7 +1644,7 @@ async def fill_data() -> None:
     response = await http.post(
         "/reports/batch",
         json=data,
-        headers={"Authorization": f"{os.getenv('CITYPULSE_API_KEY')}"},
+        headers={"Authorization": ""},
     )
     print(response.json())
 
