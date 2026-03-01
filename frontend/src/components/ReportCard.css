@@ -1,0 +1,140 @@
+/* ======================== Report Card ======================== */
+
+.report-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.15s;
+  cursor: pointer;
+}
+
+.report-card:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.report-card.urgent {
+  border-left: 3px solid #e94560;
+}
+
+/* ---- Image ---- */
+.report-image {
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+}
+
+.report-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Body ---- */
+.report-body {
+  padding: 0.85rem 1rem 1rem;
+}
+
+.report-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+/* ---- Department badges ---- */
+.dept-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.dept-police {
+  background: rgba(74, 144, 217, 0.18);
+  color: #6bb3f5;
+}
+
+.dept-fire_department {
+  background: rgba(233, 69, 96, 0.18);
+  color: #f87171;
+}
+
+.dept-municipality {
+  background: rgba(46, 204, 113, 0.18);
+  color: #6ee7a0;
+}
+
+/* ---- Status badges ---- */
+.status-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+.status-open {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
+
+.status-in_progress {
+  background: rgba(108, 99, 255, 0.15);
+  color: #a5b4fc;
+}
+
+.status-resolved {
+  background: rgba(46, 204, 113, 0.15);
+  color: #6ee7a0;
+}
+
+/* ---- Text ---- */
+.report-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #eef0f6;
+  line-height: 1.3;
+}
+
+.report-description {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  color: #8a8fa8;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- Meta ---- */
+.report-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.report-location {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.urgent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #e94560;
+  line-height: 1;
+}
+
+.urgent-badge svg {
+  flex-shrink: 0;
+}
