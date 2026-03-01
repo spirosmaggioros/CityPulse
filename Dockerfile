@@ -36,11 +36,11 @@ COPY --from=builder /app/frontend/dist /usr/share/nginx/html
 
 # Copy ALL nginx config variants into /etc/nginx/templates (not conf.d, to avoid
 # auto-include and to survive container restarts)
-RUN mkdir -p /etc/nginx/templates /etc/nginx/snippets
+RUN mkdir -p /etc/nginx/templates
 COPY nginx/nginx.conf        /etc/nginx/templates/nginx.dev.conf
 COPY nginx/nginx.prod.conf   /etc/nginx/templates/nginx.prod.conf
 COPY nginx/default.dev.conf  /etc/nginx/templates/default.dev.conf
-COPY nginx/security.conf     /etc/nginx/templates/security.prod.conf
+COPY nginx/default.prod.conf /etc/nginx/templates/default.prod.conf
 
 # Remove the base-image default server block so it doesn't conflict
 RUN rm -f /etc/nginx/conf.d/default.conf

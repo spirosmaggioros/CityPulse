@@ -4,7 +4,13 @@ from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
-from .config import client, get_http_client, mistral_model, session_store, CITYPULSE_API_KEY
+from .config import (
+    CITYPULSE_API_KEY,
+    client,
+    get_http_client,
+    mistral_model,
+    session_store,
+)
 
 SUBMISSION_TOOL = {
     "type": "function",
@@ -108,9 +114,7 @@ async def submit_issue(user_query: str, session_id: str = "") -> Any:
         if issue_description.get("image_url"):
             payload["image_url"] = issue_description["image_url"]
         response = await http.post(
-            "/reports",
-            json=payload,
-            headers={"Authorization": CITYPULSE_API_KEY}
+            "/reports", json=payload, headers={"Authorization": CITYPULSE_API_KEY}
         )
     else:
         # assert similar_issue_search["similar_issue"] is not None
