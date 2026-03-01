@@ -1,0 +1,176 @@
+/* ── CityPulse Dark Theme for Chainlit ── */
+
+/* Background */
+body,
+html {
+  background-color: #0b0e17 !important;
+}
+
+/* Main chat container */
+.MuiBox-root,
+main {
+  background-color: #0b0e17 !important;
+}
+
+/* Message bubbles */
+.step {
+  border-radius: 16px !important;
+  box-shadow: 0 2px 10px rgba(108, 99, 255, 0.06) !important;
+  background-color: transparent !important;
+}
+
+/* User messages */
+.step.user-step,
+.step[data-testid="user-message"] {
+  background-color: rgba(108, 99, 255, 0.14) !important;
+}
+
+/* Bot messages */
+.step.assistant-step,
+.step[data-testid="assistant-message"] {
+  background-color: transparent !important;
+}
+
+/* Send button */
+button[id="chat-submit"],
+.MuiIconButton-root[type="submit"],
+button.send-button,
+button[data-testid="chat-submit"] {
+  background: linear-gradient(135deg, #6c63ff 0%, #00d4ff 100%) !important;
+  color: white !important;
+  border-radius: 24px !important;
+  box-shadow: 0 4px 14px rgba(108, 99, 255, 0.35) !important;
+  transition: transform 0.2s, box-shadow 0.25s !important;
+}
+
+button[id="chat-submit"]:hover,
+.MuiIconButton-root[type="submit"]:hover,
+button.send-button:hover,
+button[data-testid="chat-submit"]:hover {
+  background: linear-gradient(135deg, #5a52e0 0%, #00b8d4 100%) !important;
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.45) !important;
+  transform: scale(1.08) !important;
+}
+
+/* Links */
+a {
+  color: #00d4ff !important;
+}
+a:hover {
+  color: #6c63ff !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6c63ff, #00d4ff);
+  border-radius: 8px;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Header */
+header {
+  background-color: rgba(11, 14, 23, 0.85) !important;
+  backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.15) !important;
+}
+
+/* Input area – unified background for the whole composer */
+.composer-input,
+textarea,
+.MuiInputBase-root,
+.MuiBox-root:has(> textarea),
+[class*="composer"],
+[class*="Composer"] {
+  background-color: rgba(18, 21, 35, 0.9) !important;
+  color: #e8e8f0 !important;
+  border-color: rgba(0, 212, 255, 0.2) !important;
+}
+
+/* Remove any inner input backgrounds that cause the two-tone look */
+textarea {
+  background: transparent !important;
+}
+
+/* Buttons general */
+.MuiButton-root,
+button.MuiButtonBase-root {
+  color: #00d4ff !important;
+}
+
+.MuiButton-contained {
+  background: linear-gradient(135deg, #6c63ff 0%, #00d4ff 100%) !important;
+  color: #fff !important;
+}
+
+/* Upload / attach button – bigger icon */
+.MuiIconButton-root {
+  color: #00d4ff !important;
+}
+
+.MuiIconButton-root svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Sidebar */
+.MuiDrawer-paper {
+  background-color: #0b0e17 !important;
+  border-right: 1px solid rgba(0, 212, 255, 0.1) !important;
+}
+
+/* ── Disable Theme Switcher – Force Dark Theme Only ── */
+/* Hide ALL theme-related buttons and selectors */
+button[class*="theme"],
+button[aria-label*="theme"],
+button[aria-label*="Theme"],
+button[title*="theme"],
+button[title*="Theme"],
+.theme-button,
+.theme-switcher,
+.theme-toggle,
+[data-testid*="theme"],
+button:has(svg[class*="sun"]),
+button:has(svg[class*="moon"]) {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Hide theme selector menus and options */
+[role="menu"] [data-value="light"],
+[role="menu"] [value="light"],
+[role="menuitem"] [data-value="light"],
+.MuiMenuItem-root[data-value="light"],
+button[value="light"],
+option[value="light"],
+*[class*="light-theme"],
+*[class*="Light"],
+.light-mode,
+.light {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Force dark theme always */
+html,
+body,
+[data-color-mode] {
+  color-scheme: dark !important;
+  --color-mode: dark !important;
+}
+
+/* If there's a theme context wrapper, keep it dark */
+[data-theme],
+[theme],
+.theme-provider {
+  --theme: dark !important;
+}
