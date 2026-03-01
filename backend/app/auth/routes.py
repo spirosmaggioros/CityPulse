@@ -1,8 +1,8 @@
 from app.auth.auth import create_access_token, hash_password, verify_password
 from app.db import users_collection
 from app.models import UserCreate, UserLogin, UserOut
+from fastapi import APIRouter, HTTPException, status, Depends
 from app.utils import verify_api_key
-from fastapi import APIRouter, Depends, HTTPException, status
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 

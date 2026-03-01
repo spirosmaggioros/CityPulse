@@ -78,8 +78,8 @@ async def problem_classifier(
         model=mistral_model,
         messages=[
             {
-                "role": "system",
-                "content": """
+            "role": "system",
+            "content": """
                 You are a city issue classifier for a civic reporting platform. Your job is to evaluate
                 and classify issues reported by citizens.
 

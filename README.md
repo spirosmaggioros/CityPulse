@@ -7,14 +7,10 @@
 
 **CityPulse is an AI-powered platform that lets citizens report urban issues through a simple chat conversation — no forms, no bureaucracy, no hassle.**
 
-🌐 **Try it now at [citypulse.freeddns.us](https://citypulse.freeddns.us/)**
-
 [Get Started](#-how-it-works) · [Features](#-what-citypulse-does) · [How It Works](#-how-it-works) · [FAQ](#-frequently-asked-questions)
 
 
 ---
-
-[Watch our CityPulse Demo](https://www.youtube.com/watch?v=fTCY2FSUafY)
 
 </div>
 
