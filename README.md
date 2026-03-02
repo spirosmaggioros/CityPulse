@@ -147,10 +147,10 @@ CityPulse automatically routes reports to the correct department:
 
 <div align="center">
 
-  <div style="display: flex; justify-content: center; gap: 30px; align-items: center;">
-    <img src="/assets/mistral.svg" alt="Mistral AI" height="60">
-    <img src="/assets/langchain.svg" alt="Langchain" height="60">
-    <img src="/assets/aws.png" alt="AWS" height="60">
+  <div style="display: flex; justify-content: center; gap: 80px; align-items: center;">
+    <img src="/assets/mistral.svg" alt="Mistral AI" height="120">
+    <img src="/assets/langchain.svg" alt="Langchain" height="250">
+    <img src="/assets/aws.png" alt="AWS" height="120">
   </div>
 
   <img src="/assets/citypulse_pipeline.png?raw=true" alt="CityPulse Pipeline" width="750">
