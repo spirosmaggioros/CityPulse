@@ -149,7 +149,7 @@ CityPulse automatically routes reports to the correct department:
 
   <div style="display: flex; justify-content: center; gap: 80px; align-items: center;">
     <img src="/assets/mistral.svg" alt="Mistral AI" height="120">
-    <img src="/assets/langchain.svg" alt="Langchain" height="250">
+    <img src="/assets/langchain.png" alt="Langchain" height="120">
     <img src="/assets/aws.png" alt="AWS" height="120">
   </div>
 
