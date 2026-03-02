@@ -32,6 +32,7 @@ async def fetch_pins_from_db(db_query: str) -> list[dict]:
     try:
         if isinstance(db_query, str):
             db_query = json.loads(db_query)
+        print(db_query)
         http = get_http_client()
         response = await http.post(
             "/reports/rag-query",
@@ -43,6 +44,7 @@ async def fetch_pins_from_db(db_query: str) -> list[dict]:
         return []
 
     data = response.json()
+    print(data)
 
     # if len(data) > 2000:
     # data = data[:2000]
@@ -71,6 +73,23 @@ async def explainer(user_query: str) -> Any:
                     Given a natural-language question about regional statistics,
                     produce the minimal database query required to fetch the relevant pins/reports.
                     Return only a db_query field — no explanation.
+
+                    IMPORTANT QUERY RULES:
+                        - To filter by country, use "country_code" with ISO 3166-1 Alpha-2 codes
+                        (e.g., Greece = "GR", Italy = "IT", Cyprus = "CY")
+                        - To filter by city/location text, use regex: {"location": {"$regex": "Athens", "$options": "i"}}
+                        - Do NOT use exact equality on "location" as it's a free-text field
+                        - For Municipality-related queries, use {"department": "MUNICIPALITY"}
+                        - For Fire-department-related queries, use {"department": "FIRE_DEPARTMENT"}
+                        - For crime-related queries, use {"department": "POLICE"}
+
+                        Example for Athens crime: {"country_code": "GR", "location": {"$regex": "Athens", "$options": "i"}, "department": "POLICE"}
+                        Example for Rome crime: {"country_code": "IT", "location": {"$regex": "Rome", "$options": "i"}, "department": "POLICE"}
+                        Example for Athens crime: {"country_code": "GR", "location": {"$regex": "Athens", "$options": "i"}, "department": "POLICE"}
+                        Example for Rome crime: {"country_code": "IT", "location": {"$regex": "Rome", "$options": "i"}, "department": "POLICE"}
+
+                        - When comparing multiple regions/cities, use $or:
+                        Example for Athens vs Rome crime: {"$or": [{"country_code": "GR", "location": {"$regex": "Athens", "$options": "i"}}, {"country_code": "IT", "location": {"$regex": "Rome", "$options": "i"}}], "department": "POLICE"}
 
                     Here is our Report base model:
                     class Report(BaseModel):

@@ -71,15 +71,26 @@ async def reset_node(state: CityPulseState) -> dict:
         "reset": True,
     }
 
+
 def ask_for_location_node(state: CityPulseState) -> dict:
     return {
-        "messages": [AIMessage(content="Got it! Could you also share the **location or address** where this issue is occurring?")]
+        "messages": [
+            AIMessage(
+                content="Got it! Could you also share the **location or address** where this issue is occurring?"
+            )
+        ]
     }
+
 
 def ask_for_issue_node(state: CityPulseState) -> dict:
     return {
-        "messages": [AIMessage(content="Got it! Now could you describe the **issue** you're experiencing at that location?")]
+        "messages": [
+            AIMessage(
+                content="Got it! Now could you describe the **issue** you're experiencing at that location?"
+            )
+        ]
     }
+
 
 def supervisor_node(state: CityPulseState) -> dict:
     location_collected = state.get("location_collected", False)
@@ -90,40 +101,69 @@ def supervisor_node(state: CityPulseState) -> dict:
         (m.content for m in reversed(state["messages"]) if isinstance(m, HumanMessage)),
         "",
     )
-    
+
     if location_collected and issue_classified:
-        reset_response = llm.invoke([
-        HumanMessage(content=f"""Does this message indicate the user wants to start a new/fresh issue report, separate from any previous one?
+        reset_response = llm.invoke(
+            [
+                HumanMessage(
+                    content=f"""Does this message indicate the user wants to start a new/fresh issue report, separate from any previous one?
             User message: "{last_human}"
 
-            Reply with only YES or NO.""")
-        ])
+            Reply with only YES or NO."""
+                )
+            ]
+        )
 
         if reset_response.content.strip().upper() == "YES":
             return {"messages": [AIMessage(content="__route:reset__")]}
 
-    explain_keywords = ["highest", "lowest", "most", "crime rate", "statistics", "how many", "which city", "compare", "show me data", "worst", "best"]
+    explain_keywords = [
+        "highest",
+        "lowest",
+        "most",
+        "crime rate",
+        "statistics",
+        "how many",
+        "which city",
+        "compare",
+        "show me data",
+        "worst",
+        "best",
+    ]
 
     if any(kw in last_human.lower() for kw in explain_keywords):
         return {"messages": [AIMessage(content="__route:explainer__")]}
 
     if awaiting_confirmation:
-        confirm_keywords = ["yes", "submit", "submit it", "confirm", "looks good", "correct", "ok", "sure"]
+        confirm_keywords = [
+            "yes",
+            "submit",
+            "submit it",
+            "confirm",
+            "looks good",
+            "correct",
+            "ok",
+            "sure",
+        ]
         if any(kw in last_human.lower() for kw in confirm_keywords):
             return {"messages": [AIMessage(content="__route:submission__")]}
         else:
             return {"messages": [AIMessage(content="__route:end__")]}
 
-    detection_response = llm.invoke([
-        HumanMessage(content=f"""Analyze this user message and determine what they are providing.
+    detection_response = llm.invoke(
+        [
+            HumanMessage(
+                content=f"""Analyze this user message and determine what they are providing.
         User message: "{last_human}"
 
         Reply with ONLY one of these labels:
         - LOCATION — if the message is primarily giving a location, address, or place name
         - ISSUE — if the message is primarily describing a problem, incident, or issue (even without a location)
         - BOTH — if the message contains both a location and an issue description
-        - UNCLEAR — if it's neither""")
-    ])
+        - UNCLEAR — if it's neither"""
+            )
+        ]
+    )
 
     detected = detection_response.content.strip().upper()
 
@@ -247,7 +287,11 @@ async def submission_node(state: CityPulseState) -> dict:
 
 def end_node(state: CityPulseState) -> dict:
     return {
-        "messages": [AIMessage(content="No problem! Let me know if you'd like to report something else.")]
+        "messages": [
+            AIMessage(
+                content="No problem! Let me know if you'd like to report something else."
+            )
+        ]
     }
 
 
@@ -283,6 +327,7 @@ def route_from_supervisor(
         return "ask_for_issue"
     else:
         return "end"
+
 
 builder = StateGraph(CityPulseState)
 
