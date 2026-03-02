@@ -32,7 +32,6 @@ async def fetch_pins_from_db(db_query: str) -> list[dict]:
     try:
         if isinstance(db_query, str):
             db_query = json.loads(db_query)
-        print(db_query)
         http = get_http_client()
         response = await http.post(
             "/reports/rag-query",
@@ -44,7 +43,6 @@ async def fetch_pins_from_db(db_query: str) -> list[dict]:
         return []
 
     data = response.json()
-    print(data)
 
     # if len(data) > 2000:
     # data = data[:2000]
