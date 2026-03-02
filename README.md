@@ -146,11 +146,19 @@ CityPulse automatically routes reports to the correct department:
 ## ⚙️ Under the Hood
 
 <div align="center">
+
+  <div style="display: flex; justify-content: center; gap: 30px; align-items: center;">
+    <img src="/assets/mistral.svg" alt="Mistral AI" height="60">
+    <img src="/assets/langchain.svg" alt="Langchain" height="60">
+    <img src="/assets/aws.png" alt="AWS" height="60">
+  </div>
+
   <img src="/assets/citypulse_pipeline.png?raw=true" alt="CityPulse Pipeline" width="750">
 
   <br><br>
 
   *CityPulse is powered by a multi-agent AI system built with Mistral AI. Each step of the reporting process — location mapping, issue classification, duplicate detection, and submission — is handled by a specialized agent working together seamlessly behind the scenes.*
+
 </div>
 
 ---
